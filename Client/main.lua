@@ -76,7 +76,7 @@ function love.draw()
 	end
 	love.graphics.rectangle("fill", 0, w_h_2, w_w, w_h_2)
 	love.graphics.setColor(Colors.violet)
-	love.graphics.setFont( Fonts[1] ); love.graphics.print("v1.3");
+	love.graphics.setFont( Fonts[1] ); love.graphics.print("\n v1.3");
 
 	love.graphics.setColor(Colors.orange)
 end
