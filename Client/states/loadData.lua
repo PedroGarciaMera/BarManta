@@ -109,7 +109,7 @@ function loadData:loads()
 	Colors.grey = {0.5,0.5,0.5}
 	Colors.yellow = {1,1,0}
 	Colors.green = {0.1,0.6,0.1}
-	Colors.BG = { {0.4,0,0.1};{0.4,0.0,0.3};{0.1,0.2,0.2} }
+	Colors.BG = { connecting = {0.3,0.1,0.3}, connected = {0.1,0.2,0.2} }
 
 	Fonts = {
 		love.graphics.newFont(30);
@@ -159,11 +159,13 @@ function loadData:loads()
 	_Cs.K = sock.newClient("192.168.1.160", 22122)
 	-- _Cs.K = sock.newClient("192.168.1.29", 22122)
 	_Cs.K:setSerialization(bitser.dumps, bitser.loads)
+	_Cs.K:setTimeout(8, 1250, 7500)
 	_Cs.K:connect()
 
 	_Cs.B = sock.newClient("192.168.1.153", 22124)
 	-- _Cs.B = sock.newClient("192.168.1.29", 22124)
 	_Cs.B:setSerialization(bitser.dumps, bitser.loads)
+	_Cs.B:setTimeout(8, 1250, 7500)
 	_Cs.B:connect()
 
 	_CsStatus = {K=2;B=2}

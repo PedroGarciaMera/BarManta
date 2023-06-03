@@ -65,12 +65,19 @@ end
 
 function love.draw()
 	love.graphics.scale(scalex,scaley)
-	love.graphics.setColor(Colors.BG[_CsStatus.K])
+	love.graphics.setColor(0.4,0,0.1)
+	if _Cs and _Cs.K and _Cs.K.getState and Colors.BG[_Cs.K:getState()] then 
+		love.graphics.setColor(Colors.BG[_Cs.K:getState()])
+	end
 	love.graphics.rectangle("fill", 0, 0, w_w, w_h_2)
-	love.graphics.setColor(Colors.BG[_CsStatus.B])
+	love.graphics.setColor(0.4,0,0.1)
+	if _Cs and _Cs.B and _Cs.B.getState and Colors.BG[_Cs.B:getState()] then 
+		love.graphics.setColor(Colors.BG[_Cs.B:getState()])
+	end
 	love.graphics.rectangle("fill", 0, w_h_2, w_w, w_h_2)
 	love.graphics.setColor(Colors.violet)
-	love.graphics.setFont( Fonts[1] ); love.graphics.print("1.2");
+	love.graphics.setFont( Fonts[1] ); love.graphics.print("v1.3");
+
 	love.graphics.setColor(Colors.orange)
 end
 
