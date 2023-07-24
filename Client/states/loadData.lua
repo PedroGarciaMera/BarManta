@@ -109,7 +109,6 @@ function loadData:loads()
 	Colors.grey = {0.5,0.5,0.5}
 	Colors.yellow = {1,1,0}
 	Colors.green = {0.1,0.6,0.1}
-	Colors.BG = { connecting = {0.3,0.1,0.3}, connected = {0.1,0.2,0.2} }
 
 	Fonts = {
 		love.graphics.newFont(30);
