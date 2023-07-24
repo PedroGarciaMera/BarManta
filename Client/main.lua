@@ -76,13 +76,6 @@ function love.update(dt)
 end
 
 
-local function drawClientsStatus()
-	love.graphics.setFont( Fonts[3] );
-	love.graphics.printf("1 o 2 clientes desconectados",0,0,w_w,"center")
-	love.graphics.printf("Cocina => ".._Cs.K:getState(),0,Fonts[3]:getHeight(),w_w,"center")
-	love.graphics.printf("Barra => ".._Cs.B:getState(),0,Fonts[3]:getHeight()*2,w_w,"center")
-end
-
 function love.draw()
 	love.graphics.scale(scalex,scaley)
 	love.graphics.setColor(Colors.orange)
