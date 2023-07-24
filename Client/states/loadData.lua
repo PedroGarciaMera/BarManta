@@ -157,18 +157,17 @@ function loadData:loads()
 	-- Clients
 	_Cs = {}
 	_Cs.K = sock.newClient("192.168.1.160", 22122)
-	-- _Cs.K = sock.newClient("192.168.1.29", 22122)
+	-- _Cs.K = sock.newClient("192.168.18.6", 22122)
 	_Cs.K:setSerialization(bitser.dumps, bitser.loads)
-	_Cs.K:setTimeout(8, 1250, 7500)
+	-- _Cs.K:setTimeout(8, 1250, 7500)
+	-- _Cs.K:setMessageTimeout(1000)
 	_Cs.K:connect()
 
 	_Cs.B = sock.newClient("192.168.1.153", 22124)
-	-- _Cs.B = sock.newClient("192.168.1.29", 22124)
+	-- _Cs.B = sock.newClient("192.168.18.6", 22124)
 	_Cs.B:setSerialization(bitser.dumps, bitser.loads)
-	_Cs.B:setTimeout(8, 1250, 7500)
+	-- _Cs.B:setTimeout(8, 1250, 7500)
 	_Cs.B:connect()
-
-	_CsStatus = {K=2;B=2}
 
 	_Cs.K:on("sended", function(Mi)
 		local M = _Mesas[Mi];
@@ -205,8 +204,6 @@ function loadData:loads()
 		love.filesystem.write( "mesas.sav", TSerial.pack(_Mesas))
 	end)
 
-	checkClients(0)
-
 	loadMenus();
 
 	print("Files loaded")
@@ -214,6 +211,6 @@ end
 
 function loadData:init() self:loads() end
 
-function loadData:update(dt) _GS.switch(_Gs.PickMesa) end
+function loadData:update(dt) _GS.switch(_Gs.Status) end
 
 return loadData

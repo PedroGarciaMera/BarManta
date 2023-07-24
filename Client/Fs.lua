@@ -35,17 +35,3 @@ function clearMesa(Mi,toHistory)
 	_Mesas[Mi]=nil
 	love.filesystem.write( "mesas.sav", TSerial.pack(_Mesas))
 end
-
-function checkClients(dt)
-	if dt>2 then
-		_CsStatus = {K=1;B=1}
-		for K,C in pairs(_Cs) do C:disconnectNow() end
-	else
-		for KEY,C in pairs(_Cs) do
-			if _CsStatus[KEY]==1 then _CsStatus[KEY]=2; C:connect()
-			elseif _CsStatus[KEY]==2 and C:isConnected() then _CsStatus[KEY]=3
-			end
-			C:update()
-		end
-	end
-end

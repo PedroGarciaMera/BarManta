@@ -30,15 +30,14 @@ function love.load()
 
 	_Gs = getGsStates()
 
-	_GS.registerEvents()
+	_GS.registerEvents({ 'update', 'keypressed', 'keyreleased', 'touchpressed', 'touchreleased' }); 
 	_GS.switch(_Gs.loadData)
 end
 
 function love.keyreleased(key)
 	if key=='r' then love.event.quit("restart")
 	elseif key=='t' then
-		_CsStatus = {K=1;B=1}
-		for K,C in pairs(_Cs) do C:disconnectNow() end
+		for _,C in pairs(_Cs) do C:disconnectNow() end
 	end
 end
 
@@ -52,8 +51,21 @@ end
 function love.touchpressed( id, x, y, dx, dy, pressure ) _TPT=0; _QT=true; _TPos={x,y} end
 function love.touchreleased( id, x, y, dx, dy, pressure ) _TPT=false end
 
+local function areBothClientConnected() return _Cs.K:isConnected() and _Cs.B:isConnected() end
 function love.update(dt)
-	if _Cs then checkClients(dt) end
+	if _Cs and _Cs.B and _Cs.K then
+		if _GS.current() == _Gs.Status then
+			if areBothClientConnected() then _GS.switch(_Gs.PickMesa) end
+		else 
+			if not areBothClientConnected() then _GS.switch(_Gs.Status) end
+		end
+
+		if dt>2 then
+			for _,C in pairs(_Cs) do C:disconnectNow() end
+		end
+
+		for _,C in pairs(_Cs) do pcall(function() C:update() end) end
+	end
 
 	if _TPT then
 		_TPT=_TPT+dt
@@ -63,22 +75,26 @@ function love.update(dt)
 	end
 end
 
+
+local function drawClientsStatus()
+	love.graphics.setFont( Fonts[3] );
+	love.graphics.printf("1 o 2 clientes desconectados",0,0,w_w,"center")
+	love.graphics.printf("Cocina => ".._Cs.K:getState(),0,Fonts[3]:getHeight(),w_w,"center")
+	love.graphics.printf("Barra => ".._Cs.B:getState(),0,Fonts[3]:getHeight()*2,w_w,"center")
+end
+
 function love.draw()
 	love.graphics.scale(scalex,scaley)
-	love.graphics.setColor(0.4,0,0.1)
-	if _Cs and _Cs.K and _Cs.K.getState and Colors.BG[_Cs.K:getState()] then 
-		love.graphics.setColor(Colors.BG[_Cs.K:getState()])
-	end
-	love.graphics.rectangle("fill", 0, 0, w_w, w_h_2)
-	love.graphics.setColor(0.4,0,0.1)
-	if _Cs and _Cs.B and _Cs.B.getState and Colors.BG[_Cs.B:getState()] then 
-		love.graphics.setColor(Colors.BG[_Cs.B:getState()])
-	end
-	love.graphics.rectangle("fill", 0, w_h_2, w_w, w_h_2)
-	love.graphics.setColor(Colors.violet)
-	love.graphics.setFont( Fonts[1] ); love.graphics.print("\n v1.3");
-
 	love.graphics.setColor(Colors.orange)
+
+	if _Cs and _Cs.B and _Cs.K then
+		if _GS.current().draw then _GS.current():draw()	end
+	else
+		love.graphics.print("Fatal server error")
+	end
+
+	love.graphics.setColor(Colors.violet)
+	love.graphics.setFont( Fonts[1] ); love.graphics.print("\n v1.4");
 end
 
 function love.quit() return false end
