@@ -24,7 +24,8 @@ end
 
 
 function loadServer()
-	local S = sock.newServer("*")
+	-- local S = sock.newServer("*"); _IP = "K 160"
+	local S = sock.newServer("*", 22124); _IP = "B 153"
 	S:setSerialization(bitser.dumps, bitser.loads)
 
 	S:on("connect", function(data, client)
@@ -67,12 +68,14 @@ function loadServer()
 
 		if M then
 			for _,v in ipairs(D) do
-				table.insert(M,{k=v.item;n=v.n;done=false})
+				table.insert(M,{k=v.item;n=v.n;done=false;type=v.type})
+				if v.type=="B" then M.drinks=true end
 			end
 		else
 			local T =  { mesa=D.m }
 			for _,v in ipairs(D) do
-				table.insert(T,{k=v.item;n=v.n;done=false})
+				table.insert(T,{k=v.item;n=v.n;done=false;type=v.type})
+				if v.type=="B" then T.drinks=true end
 			end
 			table.insert(_Mesas,T)
 		end
@@ -81,6 +84,13 @@ function loadServer()
 		if currentM and currentM.mesa==D.m then gs.current():loadButtons() end
 
 		client:send("sended",D.m)
+		love.filesystem.write( "mesas.sav", TSerial.pack(_Mesas))
+	end)
+
+	S:on("cuenta", function(D, client) -- D = {N}
+		SFX.alert:stop(); SFX.alert:play()
+
+		table.insert(_Mesas,{ mesa=D, cuenta=true })
 	end)
 
 	-- S:on("eraser", function(D, client) -- D = {m=_mesaPd;type="KorB"}
@@ -108,7 +118,7 @@ function getMesa(Mi) -- return false if not exist
 	local existM = false
 
 	for _,v in ipairs(_Mesas) do
-		if v.mesa == Mi then existM = v; break end
+		if v.mesa == Mi and not v.cuenta then existM = v; break end
 	end
 
 	return existM

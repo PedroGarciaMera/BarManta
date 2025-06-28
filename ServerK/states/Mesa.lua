@@ -1,7 +1,7 @@
 Mesa = {}
 
 function Mesa:loadButtons()
-	self.Bs = {}; self.hudBs = {}; local B
+	self.Bs = {}; self.hudBs = {}; self.upB = false local B
 	local y = 0
 
 	-- Back
@@ -20,27 +20,42 @@ function Mesa:loadButtons()
 		end
 	))
 	-- Scroll Up
-	table.insert(self.hudBs,newButton(w_w-w_w*0.1,w_h*0.2,w_w*0.1,w_h*0.2,"^",
+	self.upB = newButton(w_w-w_w*0.1,w_h*0.2,w_w*0.1,w_h*0.2,"^",
 		function() self.Y = self.Y + self.move end
-	))
+	)
 	-- Scroll Down
 	table.insert(self.hudBs,newButton(w_w-w_w*0.1,w_h*0.6,w_w*0.1,w_h*0.2,"v",
 		function() self.Y = self.Y - self.move end
 	))
 
 	-- Items
-	self.M = _Mesas[self.pos]
 	if self.M then
 		for i,T in ipairs(self.M) do
-			B = newButton(0,y,w_w*0.8,self._D.th," ",function()
-				T.done = not T.done
-				if not T.done then self.M.done=false
-				elseif self:isMesaDone() then self.M.done=true
-				end
-			end)
-			table.insert(self.Bs,B)
+			if T.type=="B" then
+				B = newButton(0,y,w_w*0.8,self._D.th," ",function()
+					T.done = not T.done
+					if not T.done then self.M.done=false
+					elseif self:isMesaDone() then self.M.done=true
+					end
+				end)
+				table.insert(self.Bs,B);
 
-			y=y+self._D.th
+				y=y+self._D.th
+			end
+		end
+		y=y+self._D.th
+		for i,T in ipairs(self.M) do
+			if T.type=="K" then
+				B = newButton(0,y,w_w*0.8,self._D.th," ",function()
+					T.done = not T.done
+					if not T.done then self.M.done=false
+					elseif self:isMesaDone() then self.M.done=true
+					end
+				end)
+				table.insert(self.Bs,B);
+
+				y=y+self._D.th
+			end
 		end
 	end
 end
@@ -69,6 +84,8 @@ function Mesa:keyreleased(key)
 end
 
 function Mesa:mousereleased( x, y, button, istouch )
+	if isPointInRectangle(x,y,self.upB) then self.upB.exe(); return end
+
 	for i,B in ipairs(self.hudBs) do
 		if isPointInRectangle(x,y,B) then B.exe(); return end
 	end
@@ -83,27 +100,62 @@ end
 
 function Mesa:draw()
 	-- Items
-	local y = self.Y; local It
+	local y = self.Y; local It;
 	if self.M then
-		-- Mesa nº
+		-- Mesa num
 		love.graphics.setFont( Fonts[3] )
-		love.graphics.setColor(1,0,0,0.4)
+		love.graphics.setColor(Colors.red)
 		-- love.graphics.printf(self.M, 0, 0, w_w, "center")
 		love.graphics.printf(self.M.mesa, 0, 0, w_w, "center")
 
 		love.graphics.setFont( Fonts[1] )
-		for i,T in ipairs(self.M) do
-			if T.done then love.graphics.setColor(Colors.orange) else love.graphics.setColor(Colors.yellow) end
-			-- drawButton(self.Bs[i])
-			love.graphics.printf(T.n.."\t"..T.k, 0, y, w_w, "left")
 
-			y=y+self._D.th
+		-- Start Line
+		-- love.graphics.setColor(Colors.green)
+		-- love.graphics.line(0,y,w_w,y)
+		
+		-- Bebidas
+		for i,T in ipairs(self.M) do
+			if T.type=="B" then
+				if T.done then love.graphics.setColor(Colors.orange) else love.graphics.setColor(Colors.yellow) end
+				-- drawButton(self.Bs[i+2])
+				love.graphics.printf(T.n.."\t"..T.k, 0, y, w_w, "left")
+
+				y=y+self._D.th
+			end
 		end
+
+		if self.M.drinks then
+			-- Separador
+			love.graphics.setColor(Colors.green)
+			love.graphics.printf("Comidas", 0, y, w_w, "center")
+			y=y+self._D.th
+			love.graphics.line(0,y,w_w,y)
+		end
+
+		-- Comidas
+		for i,T in ipairs(self.M) do
+			if T.type=="K" then
+				if T.done then love.graphics.setColor(Colors.orange) else love.graphics.setColor(Colors.yellow) end
+				-- drawButton(self.Bs[i+2])
+				love.graphics.printf(T.n.."\t"..T.k, 0, y, w_w, "left")
+
+				y=y+self._D.th
+			end
+		end
+
+		-- End Line
+		-- love.graphics.setColor(Colors.green)
+		-- love.graphics.line(0,y,w_w,y)
 	end
 	-- Back and clear
 	love.graphics.setFont( Fonts[1] )
 	love.graphics.setColor(Colors.orange)
 	drawButtons(self.hudBs)
+
+	-- Scroll UP
+	if self.Y < 0 then love.graphics.setColor(Colors.yellow) end
+	drawButton(self.upB)
 end
 
 function Mesa:leave()

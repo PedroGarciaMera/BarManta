@@ -24,7 +24,15 @@ end
 
 function PickMesa:mousereleased( x, y, button, istouch )
 	for i,B in ipairs(self.Bs) do
-		if _Mesas[B.txt] and isPointInRectangle(x,y,B) then B.exe(); break end
+		if _Mesas[B.txt] and isPointInRectangle(x,y,B) then
+			if _Mesas[B.txt].cuenta then 
+				table.remove(_Mesas,B.txt);
+				love.filesystem.write( "mesas.sav", TSerial.pack(_Mesas))
+			else 
+				B.exe()
+			end
+			break 
+		end
 	end
 end
 
@@ -41,7 +49,9 @@ function PickMesa:draw()
 		love.graphics.setFont( Fonts[2] )
 		for i,B in pairs(self.Bs) do
 			if _Mesas[i] then
-				if _Mesas[i].done then love.graphics.setColor(Colors.orange)
+				if _Mesas[i].cuenta then love.graphics.setColor(Colors.red)
+				elseif _Mesas[i].done then love.graphics.setColor(Colors.orange)
+				elseif _Mesas[i].drinks then love.graphics.setColor(Colors.green)
 				else love.graphics.setColor(Colors.yellow)
 				end
 				drawMesaButton(B,_Mesas[i].mesa)

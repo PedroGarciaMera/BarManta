@@ -1,3 +1,5 @@
+_DEBUG = false; _V = "v1.2"
+
 sock = require "sock"
 bitser = require "spec.bitser"
 
@@ -11,6 +13,7 @@ require "states/Mesa"
 
 
 require "Fs"
+
 
 function love.load()
 	w_w = 1136 ; w_h = 640
@@ -37,7 +40,7 @@ end
 
 function love.draw() 
 	love.graphics.scale(scalex,scaley)
-	love.graphics.setFont( Fonts[4] ); love.graphics.setColor(0.5,0.5,1); love.graphics.print("1.1");
+	love.graphics.setFont( Fonts[4] ); love.graphics.setColor(0.5,0.5,1); love.graphics.print(_V);
 end
 
 function love.resize( w, h )
