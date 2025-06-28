@@ -24,8 +24,7 @@ end
 
 
 function loadServer()
-	-- local S = sock.newServer("*"); _IP = "K 160"
-	local S = sock.newServer("*", 22124); _IP = "B 153"
+	local S = sock.newServer("*", _K and 22122 or 22124);
 	S:setSerialization(bitser.dumps, bitser.loads)
 
 	S:on("connect", function(data, client)
