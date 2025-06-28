@@ -1,10 +1,10 @@
-local HistoryMesa = { Font=4 }
+local HistoryMesa = { Font=8 }
 
 function HistoryMesa:init()
 	self.Bs = {}; local B
 
 	-- Back
-	table.insert(self.Bs,newButton(0,w_h-w_w*0.2,w_w*0.2,w_w*0.2,"<-",
+	table.insert(self.Bs,newButton(0,w_h-w_w*0.2,w_w*0.2,w_w*0.2,"⬅",
 		function() _GS.pop() end
 	))
 end
@@ -58,7 +58,7 @@ function HistoryMesa:draw()
 		end
 	end
 	-- Back and clear
-	love.graphics.setFont( Fonts[5] )
+	love.graphics.setFont( Fonts[7] )
 	love.graphics.setColor(Colors.orange)
 	drawButtons(self.Bs)
 end

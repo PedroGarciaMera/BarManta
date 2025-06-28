@@ -7,11 +7,19 @@ function newPosButton(pos,T,F)
 	return B
 end
 
+function stripVariationSelectors(text)
+	if tonumber(text) then 
+		return text 
+	else 
+		return text:gsub("[\239\184\143]", "") -- removes U+FE0F
+	end
+end
+
 function newButton(X,Y,W,H,T,F) return {x=X, y=Y, w=W, h=H, txt=T, exe=F} end
 
 function drawButton(B)
 	love.graphics.rectangle("line", B.x, B.y, B.w, B.h)
-	love.graphics.printf(B.txt, B.x, B.y, B.w, "center")
+	love.graphics.printf(stripVariationSelectors(B.txt), B.x, B.y, B.w, "center")
 end
 
 function drawButtons(Bs)

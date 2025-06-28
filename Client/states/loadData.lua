@@ -1,5 +1,7 @@
 local loadData = {}
 
+local IP_K = (_DEBUG and "192.168.1.46") or "192.168.1.160"; local IP_B = (_DEBUG and "192.168.1.46") or "192.168.1.153";
+
 local function makePedido(ITEM,N,IsKitchen)
 	N = N or 1;
 
@@ -32,7 +34,10 @@ local function loadSubMenuBs(key,data)
 			if item.k==" " then
 				B = newPosButton(j,item.k,function(N) end)
 			else
-				B = newPosButton(j,item.k,function(N) makePedido(item,N,data.isKitchen); _GS.pop() end)
+				-- B = newPosButton(j,item.k,function(N) makePedido(item,N,data.isKitchen); _GS.pop() end)
+				B = newPosButton(j,item.k,function(N) 
+					_GS.push(_Gs.PickAmount,item.k,function(N) makePedido(item,N,data.isKitchen); _GS.pop() end) 
+				end)
 			end
 			table.insert(_SubMenuBs[key][i],B)
 		end
@@ -76,13 +81,13 @@ local function loadMenus()
 		end
 
 		-- Next Menu
-		B = newButton(0,0,w_w*0.2,w_w*0.2,"Ø", function()
+		B = newButton(0,0,w_w*0.2,w_w*0.2,"🔃", function()
 			_MenuSel=_MenuSel+1; if _MenuSel>#_Menus then _MenuSel=1 end
 			_MenusBs[_MenuSel][#_MenusBs[_MenuSel]].txt = "Mesa ".._mesaPd
 		end)
 		table.insert(_MenusBs[i],B)
 		-- Sound Alert
-		B = newButton(w_w-w_w*0.2,0,w_w*0.2,w_w*0.2,"@)",
+		B = newButton(w_w-w_w*0.2,0,w_w*0.2,w_w*0.2,"🔊",
 			function() _Cs.K:send("alert") end
 		)
 		table.insert(_MenusBs[i],B)
@@ -117,8 +122,10 @@ function loadData:loads()
 		love.graphics.newFont("LemonMilk.otf",60);
 		love.graphics.newFont("LemonMilk.otf",100);
 		love.graphics.newFont("LemonMilk.otf",w_h*0.5);
+		love.graphics.newFont("Symbola.ttf",100);
+		love.graphics.newFont("Symbola.ttf",80);
 	}
-	love.graphics.setFont( Fonts[5] );
+	_FontsH = {}; for _, F in ipairs(Fonts) do table.insert(_FontsH, F:getHeight()) end
 
 	_mesaPd = 1 -- Mesa picked
 	_page = 1 -- pagina del submenu
@@ -155,15 +162,13 @@ function loadData:loads()
 
 	-- Clients
 	_Cs = {}
-	_Cs.K = sock.newClient("192.168.1.160", 22122)
-	-- _Cs.K = sock.newClient("192.168.18.6", 22122)
+	_Cs.K = sock.newClient(IP_K, 22122)
 	_Cs.K:setSerialization(bitser.dumps, bitser.loads)
 	-- _Cs.K:setTimeout(8, 1250, 7500)
 	-- _Cs.K:setMessageTimeout(1000)
 	_Cs.K:connect()
 
-	_Cs.B = sock.newClient("192.168.1.153", 22124)
-	-- _Cs.B = sock.newClient("192.168.18.6", 22124)
+	_Cs.B = sock.newClient(IP_B, 22124)
 	_Cs.B:setSerialization(bitser.dumps, bitser.loads)
 	-- _Cs.B:setTimeout(8, 1250, 7500)
 	_Cs.B:connect()
@@ -210,6 +215,6 @@ end
 
 function loadData:init() self:loads() end
 
-function loadData:update(dt) _GS.switch(_Gs.Status) end
+function loadData:update(dt) _GS.switch(_Gs.PickMesa) end
 
 return loadData

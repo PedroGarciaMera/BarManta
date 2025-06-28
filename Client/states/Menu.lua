@@ -3,9 +3,11 @@ local Menu = {}
 function Menu:init() end
 function Menu:enter(oldState)
 	local menuBs = _MenusBs[_MenuSel];
+  	menuBs[#menuBs].txt = "Mesa ".._mesaPd
 
-  menuBs[#menuBs].txt = "Mesa ".._mesaPd
+	love.graphics.setFont( Fonts[7] )
 end
+function Menu:resume() love.graphics.setFont( Fonts[7] ) end
 
 function Menu:keyreleased(key)
 	if key == 'escape' then _GS.switch(_Gs.PickMesa) end
@@ -32,7 +34,7 @@ function Menu:update(dt) end
 function Menu:draw()
 	local menuBs = _MenusBs[_MenuSel];
 
-	love.graphics.setFont( Fonts[5] )
+	-- love.graphics.setFont( Fonts[5] )
 	love.graphics.setColor(Colors.orange)
 	drawButtons(menuBs)
 	if _Mesas[_mesaPd] then

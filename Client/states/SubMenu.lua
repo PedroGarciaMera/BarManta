@@ -11,14 +11,14 @@ function SubMenu:keyreleased(key)
 	if key == 'escape' then _GS.pop() end
 end
 
-function SubMenu:longTouch()
-	for i,B in ipairs(self.Bs[_page]) do
-		if isPointInRectangle(_TPos[1],_TPos[2],B) then
-			if B.txt=="<-" or B.txt=="->" then _QT=true else _GS.switch(_Gs.PickAmount,B) end
-			return
-		end
-	end
-end
+-- function SubMenu:longTouch()
+-- 	for i,B in ipairs(self.Bs[_page]) do
+-- 		if isPointInRectangle(_TPos[1],_TPos[2],B) then
+-- 			if B.txt=="<-" or B.txt=="->" then _QT=true else _GS.switch(_Gs.PickAmount,B.txt,B.exe,true) end
+-- 			return
+-- 		end
+-- 	end
+-- end
 
 function SubMenu:touchreleased( id, x, y, dx, dy, pressure )
 	if _QT then

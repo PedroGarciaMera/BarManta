@@ -1,18 +1,27 @@
-local Mesa = { Font=4 }
+local Mesa = { Font=8 }
 
 function Mesa:init()
 	self.Bs = {}; local B
 
 	-- Back
-	table.insert(self.Bs,newButton(0,w_h-w_w*0.2,w_w*0.2,w_w*0.2,"<-",
+	table.insert(self.Bs,newButton(0,w_h-w_w*0.2,w_w*0.2,w_w*0.2,"⬅️",
 		function() _GS.pop() end
 	))
 	-- Clear
-	table.insert(self.Bs,newButton(w_w*0.4,w_h-w_w*0.2,w_w*0.2,w_w*0.2,"X",
+	table.insert(self.Bs,newButton(w_w*0.4,w_h-w_w*0.2,w_w*0.2,w_w*0.2,"🚮",
 		function() clearMesa(_mesaPd); _GS.pop() end
 	))
+	-- Cuenta
+	table.insert(self.Bs,newButton(w_w-w_w*0.2,w_h-w_w*0.2,w_w*0.2,w_w*0.2,"📜",
+		function() 
+			_Cs.B:send("cuenta",_mesaPd)
+			_GS.pop() 
+		end
+	))
+
+
 	-- Send Mesa
-	table.insert(self.Bs,newButton(w_w*0.8,0,w_w*0.2,w_w*0.2,"==>",
+	table.insert(self.Bs,newButton(w_w*0.8,0,w_w*0.2,w_w*0.2,"📩",
 		function()
 			local type;
 
@@ -47,7 +56,7 @@ end
 
 function Mesa:draw()
 	-- Items
-	local y = Fonts[self.Font]:getHeight(); local It
+	local y = _FontsH[self.Font]; local It
 
 	-- Mesa nº
 	love.graphics.setFont( Fonts[6] )
@@ -60,30 +69,30 @@ function Mesa:draw()
 		love.graphics.setColor(Colors.yellow)
 		for _,item in pairs(self.M.items) do
 			if not item.isKitchen then
-				love.graphics.printf(item.n.."\t"..item.txt, 0, y, w_w, "left")
+				love.graphics.printf(item.n.."  "..item.txt, 0, y, w_w, "left")
 				-- love.graphics.line(0,y+self._D.th,w_w,y+self._D.th)
 
-				y=y+Fonts[self.Font]:getHeight()
+				y=y+_FontsH[self.Font]
 			end
 		end
 		-- Separador
 		love.graphics.setColor(Colors.green)
-		love.graphics.printf("comidas", 0, y, w_w, "center")
-		y=y+Fonts[self.Font]:getHeight()
+		love.graphics.printf("COMIDAS", 0, y, w_w, "center")
+		y=y+_FontsH[self.Font]
 		love.graphics.line(0,y,w_w,y)
 		-- Comidas
 		love.graphics.setColor(Colors.yellow)
 		for _,item in pairs(self.M.items) do
 			if item.isKitchen then
-				love.graphics.printf(item.n.."\t"..item.txt, 0, y, w_w, "left")
+				love.graphics.printf(item.n.."  "..item.txt, 0, y, w_w, "left")
 				-- love.graphics.line(0,y+self._D.th,w_w,y+self._D.th)
 
-				y=y+Fonts[self.Font]:getHeight()
+				y=y+_FontsH[self.Font]
 			end
 		end
 	end
-	-- Back and clear
-	love.graphics.setFont( Fonts[5] )
+	-- Back, clear and send
+	love.graphics.setFont( Fonts[7] )
 	love.graphics.setColor(Colors.orange)
 	drawButtons(self.Bs)
 end

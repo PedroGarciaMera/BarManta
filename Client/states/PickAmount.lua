@@ -31,10 +31,9 @@ function PickAmount:init()
 	table.insert(self.Bs2,B)
 end
 
-function PickAmount:enter(oldState,Button)
+function PickAmount:enter(oldState,tittle,exe,firstT)
 	love.graphics.setColor(Colors.orange)
-	self.B = Button
-	self.firstT = true
+	self.tittle = tittle; self.exe = exe; self.firstT = firstT or false
 end
 
 function PickAmount:keyreleased(key) if key == 'escape' then _GS.pop() end end
@@ -47,13 +46,13 @@ function PickAmount:touchreleased( id, x, y, dx, dy, pressure )
 	end
 
 	for i,B in ipairs(self.Bs) do
-		if isPointInRectangle(x,y,B) then self.B.exe(i); break end
+		if isPointInRectangle(x,y,B) then self.exe(i); break end
 	end
 end
 
 function PickAmount:draw()
 	love.graphics.setFont( Fonts[5] )
-	drawTittle(self.B.txt)
+	drawTittle(self.tittle)
 	love.graphics.setFont( Fonts[4] )
 	drawButtons(self.Bs2)
 	drawButtons(self.Bs)

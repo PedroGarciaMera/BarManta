@@ -5,7 +5,7 @@ function History:init() end
 function History:enter(oldState,LT)
   self.Bs = {}; local B;
   -- Back
-	table.insert(self.Bs,newButton(0,0,w_h*0.1,w_h*0.1,"<-",
+	table.insert(self.Bs,newButton(0,0,w_h*0.1,w_h*0.1,"⬅",
 		function() _GS.switch(_Gs.PickMesa) end
 	))
   -- Mesas
@@ -13,7 +13,9 @@ function History:enter(oldState,LT)
     B = newPosButton(i,mesa.i,function() _GS.push(_Gs.HistoryMesa, mesa) end)
 		table.insert(self.Bs,B)
   end
+	love.graphics.setFont( Fonts[7] )
 end
+function History:resume() love.graphics.setFont( Fonts[7] ) end
 
 function History:keyreleased(key)
 	if key == 'escape' then _GS.switch(_Gs.PickMesa) end
