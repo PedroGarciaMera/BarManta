@@ -208,6 +208,10 @@ function loadData:loads()
 		love.filesystem.write( "mesas.sav", TSerial.pack(_Mesas))
 	end)
 
+	
+	_Cooked = {fing=false} -- {{m=X; n=Y; s=""},{...}...}
+	_Cs.K:on("cooked", function(data) _Cooked = data; _Cooked.fing = false; end)
+
 	loadMenus();
 
 	print("Files loaded")

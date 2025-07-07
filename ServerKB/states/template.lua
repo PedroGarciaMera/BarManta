@@ -27,3 +27,5 @@ end
 function template:leave()
 
 end
+
+return template

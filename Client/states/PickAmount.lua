@@ -27,13 +27,13 @@ function PickAmount:init()
 	B = newButton(0,0,w_h*0.1,w_h*0.1,"<-", function() _GS.pop() end)
 	table.insert(self.Bs2,B)
 	-- Delete item
-	B = newPosButton(14,"BORRAR",function(SELF) delPedido(SELF.B.txt); _GS.pop(); _GS.push(_Gs.Mesa) end)
+	B = newPosButton(14,"BORRAR",function(SELF) delPedido(SELF.title); _GS.pop(); _GS.pop(); _GS.push(_Gs.Mesa) end)
 	table.insert(self.Bs2,B)
 end
 
-function PickAmount:enter(oldState,tittle,exe,firstT)
+function PickAmount:enter(oldState,title,exe,firstT)
 	love.graphics.setColor(Colors.orange)
-	self.tittle = tittle; self.exe = exe; self.firstT = firstT or false
+	self.title = title; self.exe = exe; self.firstT = firstT or false
 end
 
 function PickAmount:keyreleased(key) if key == 'escape' then _GS.pop() end end
@@ -52,7 +52,7 @@ end
 
 function PickAmount:draw()
 	love.graphics.setFont( Fonts[5] )
-	drawTittle(self.tittle)
+	drawTittle(self.title)
 	love.graphics.setFont( Fonts[4] )
 	drawButtons(self.Bs2)
 	drawButtons(self.Bs)

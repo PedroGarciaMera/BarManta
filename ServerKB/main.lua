@@ -1,4 +1,4 @@
-_K = false; _V = "v1.2"
+_V = "v1.4"
 
 sock = require "sock"
 bitser = require "spec.bitser"
@@ -10,6 +10,7 @@ gs = require "libs/gamestate"
 require "states/loadData"
 require "states/PickMesa"
 require "states/Mesa"
+require "states/PickServer"
 
 
 require "Fs"
@@ -19,8 +20,6 @@ function love.load()
 	w_w = 1136 ; w_h = 640
     realw_w, realw_h = love.graphics.getDimensions( )
     scalex = (realw_w/w_w) ; scaley = (realw_h/w_h)
-
-	_S = loadServer()
 
 	gs.registerEvents()
 	gs.switch(loadData)
@@ -34,13 +33,13 @@ function love.update(dt)
 	if pcall(function() _S:update() end) then
 		love.graphics.setBackgroundColor(0.1,0.1,0.2)
 	else
-		love.graphics.setBackgroundColor(0.8,0.1,0.2)
+		love.graphics.setBackgroundColor(0.4,0.1,0.2)
 	end
 end
 
 function love.draw() 
 	love.graphics.scale(scalex,scaley)
-	love.graphics.setFont( Fonts[4] ); love.graphics.setColor(0.5,0.5,1); love.graphics.print((_K and "K160" or "B153").." - ".._V);
+	love.graphics.setFont( Fonts[4] ); love.graphics.setColor(0.5,0.5,1); love.graphics.print(_V);
 end
 
 function love.resize( w, h )

@@ -1,4 +1,4 @@
-_DEBUG = false; _V = "v1.42"
+_DEBUG = false; _V = "v1.45"
 
 sock = require "sock"
 bitser = require "spec.bitser"
@@ -95,16 +95,16 @@ function love.draw()
 		elseif _Cs.K:isConnecting() then love.graphics.setColor(0.8,0.8,0)
 		else love.graphics.setColor(0.8,0,0)
 		end
-		love.graphics.print("\n K")
+		love.graphics.printf("\nK", 0, 0, w_w, "right")
 
 		if _Cs.B:isConnected() then love.graphics.setColor(0,0.8,0)
 		elseif _Cs.B:isConnecting() then love.graphics.setColor(0.8,0.8,0)
 		else love.graphics.setColor(0.8,0,0)
 		end
-		love.graphics.print("\n\n B")
+		love.graphics.printf("\n\nB", 0, 0, w_w, "right")
 	else
 		love.graphics.setColor(0,0,0)
-		love.graphics.print("\n K\n B")
+		love.graphics.printf("\nK\nB", 0, 0, w_w, "right")
 	end
 	
 

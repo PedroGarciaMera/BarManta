@@ -30,7 +30,7 @@ function Mesa:init()
 				local MesaToSendB = {m=_mesaPd}
 				for _,item in pairs(self.M.items) do
 					type = "B";
-					if item.isKitchen then type="K"; table.insert(MesaToSendK,{item=item.txt;n=item.n}) end
+					if item.isKitchen then type="K"; table.insert(MesaToSendK,{item=item.txt;n=item.n;type=type}) end
 					table.insert(MesaToSendB,{item=item.txt;n=item.n;type=type})
 				end
 
@@ -56,7 +56,7 @@ end
 
 function Mesa:draw()
 	-- Items
-	local y = _FontsH[self.Font]; local It
+	local y = _FontsH[self.Font];
 
 	-- Mesa nº
 	love.graphics.setFont( Fonts[6] )

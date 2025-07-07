@@ -9,7 +9,7 @@ D[1] = {
 
 D[2] = {
   {k="M_CARNE",s="Montao Carne"}; {k="M_LOBI",s="Montao Lobito"}; {k="M_ATUNPL",s="Montao Atun Plancha"};
-  {k="M_ZARDA",s="Montao Zarda"}; {k="M_PEDROX",s="Montao Atun Pedro Xijemez"}; {k="OTRO_M",s="Montao Preguntar"};
+  {k="M_ZARDA",s="Montao Zarda"}; {k="M_PEDROX",s="Montao Atun PX"}; {k="OTRO_M",s="Montao Preguntar"};
 }
 
 return D

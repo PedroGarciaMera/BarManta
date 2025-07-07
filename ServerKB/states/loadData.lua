@@ -5,7 +5,7 @@ function loadData:loads()
 	I = {}; SFX = {}
 
 	SFX.alert = love.audio.newSource( "sounds/relic14.mp3", "static" )
-
+	
 	Colors = {
 		orange = {0.8,0.4,0};
 		red = {1,0,0};
@@ -32,6 +32,11 @@ function loadData:loads()
 		_Mesas = TSerial.unpack( love.filesystem.read( "mesas.sav" ) )
 	end
 
+	_Cooked = {} -- {{m=X; n=Y; s=""},{...}...}
+	if love.filesystem.getInfo( "cooked.sav" ) then
+		_Cooked = TSerial.unpack( love.filesystem.read( "cooked.sav" ) )
+	end
+
 	-- for k,v in pairs(MtoB) do print(k,v) end
 
 	print("Files loaded")
@@ -39,4 +44,4 @@ end
 
 function loadData:init() self:loads() end
 
-function loadData:update(dt) gs.switch(PickMesa) end
+function loadData:update(dt) gs.switch(PickServer) end

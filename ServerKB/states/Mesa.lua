@@ -49,7 +49,9 @@ function Mesa:loadButtons()
 				B = newButton(0,y,w_w*0.8,self._D.th," ",function()
 					T.done = not T.done
 					if not T.done then self.M.done=false
-					elseif self:isMesaDone() then self.M.done=true
+					else
+						self.M.done=self:isMesaDone()
+						self:addCooked(T)
 					end
 				end)
 				table.insert(self.Bs,B);
@@ -65,6 +67,16 @@ function Mesa:isMesaDone()
 		if not T.done then return false end
 	end
 	return true
+end
+
+function Mesa:addCooked(item)
+	table.insert(_Cooked, {m=self.M.mesa; n=item.n; s=item.k})
+
+	if #_Cooked > 16 then
+        table.remove(_Cooked, 1)  -- Remove oldest (bottom)
+    end
+
+	love.filesystem.write( "cooked.sav", TSerial.pack(_Cooked))
 end
 
 function Mesa:init()
@@ -90,7 +102,7 @@ function Mesa:mousereleased( x, y, button, istouch )
 		if isPointInRectangle(x,y,B) then B.exe(); return end
 	end
 	for i,B in ipairs(self.Bs) do
-		if isPointInRectangle(x,y-self.Y*scaley,B) then B.exe(); return end
+		if isPointInRectangle(x,y+self._D.th*scaley,B) then B.exe(); return end
 	end
 end
 

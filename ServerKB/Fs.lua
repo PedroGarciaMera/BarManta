@@ -23,8 +23,8 @@ function isPointInRectangle(x,y,R)
 end
 
 
-function loadServer()
-	local S = sock.newServer("*", _K and 22122 or 22124);
+function loadServer(Port)
+	local S = sock.newServer("*", Port);
 	S:setSerialization(bitser.dumps, bitser.loads)
 
 	S:on("connect", function(data, client)
@@ -91,6 +91,9 @@ function loadServer()
 
 		table.insert(_Mesas,{ mesa=D, cuenta=true })
 	end)
+
+	S:on("cooked", function(data, client) client:send("cooked",_Cooked) end)
+
 
 	-- S:on("eraser", function(D, client) -- D = {m=_mesaPd;type="KorB"}
 	-- 	local Mi = false

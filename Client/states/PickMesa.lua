@@ -16,6 +16,8 @@ function PickMesa:init()
 		B = newPosButton(i,i,function(self) _mesaPd=i; _GS.switch(_Gs.Menu) end)
 		table.insert(self.Bs1,B)
 	end
+	B = newPosButton(13,"🥘",function(self) _GS.push(_Gs.Cooked) end)
+	table.insert(self.Bs1,B)
 	B = newPosButton(15,"↪",function(self) self.Bs=self.Bs2 end)
 	table.insert(self.Bs1,B)
 	-- 10-19
