@@ -1,4 +1,4 @@
-_V = "v1.4"
+_DEBUG = false; _V = "v1.51"
 
 sock = require "sock"
 bitser = require "spec.bitser"
@@ -11,6 +11,7 @@ require "states/loadData"
 require "states/PickMesa"
 require "states/Mesa"
 require "states/PickServer"
+require "states/Cooked"
 
 
 require "Fs"
@@ -39,7 +40,6 @@ end
 
 function love.draw() 
 	love.graphics.scale(scalex,scaley)
-	love.graphics.setFont( Fonts[4] ); love.graphics.setColor(0.5,0.5,1); love.graphics.print(_V);
 end
 
 function love.resize( w, h )

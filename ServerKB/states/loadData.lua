@@ -21,7 +21,10 @@ function loadData:loads()
 		love.graphics.newFont("LemonMilk.otf",140);
 		love.graphics.newFont("LemonMilk.otf",w_h*0.7);
 		love.graphics.newFont(16);
+		love.graphics.newFont("Symbola.ttf",w_h*0.1);
+		love.graphics.newFont("Symbola.ttf",w_h*0.4);
 	}
+	_FontsH = {}; for _, F in ipairs(Fonts) do table.insert(_FontsH, F:getHeight()) end
 
 	_Mesas = {
 		-- { mesa=28;

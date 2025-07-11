@@ -28,7 +28,7 @@ function Mesa:loadButtons()
 		function() self.Y = self.Y - self.move end
 	))
 
-	-- Items
+	-- Items	
 	if self.M then
 		for i,T in ipairs(self.M) do
 			if T.type=="B" then
@@ -43,7 +43,7 @@ function Mesa:loadButtons()
 				y=y+self._D.th
 			end
 		end
-		y=y+self._D.th
+		if self.M.drinks then y=y+self._D.th end
 		for i,T in ipairs(self.M) do
 			if T.type=="K" then
 				B = newButton(0,y,w_w*0.8,self._D.th," ",function()
@@ -102,7 +102,7 @@ function Mesa:mousereleased( x, y, button, istouch )
 		if isPointInRectangle(x,y,B) then B.exe(); return end
 	end
 	for i,B in ipairs(self.Bs) do
-		if isPointInRectangle(x,y+self._D.th*scaley,B) then B.exe(); return end
+		if isPointInRectangle(x,y-self.Y*scaley,B) then B.exe(); return end
 	end
 end
 
