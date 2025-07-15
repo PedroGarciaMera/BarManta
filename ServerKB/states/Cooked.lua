@@ -1,4 +1,4 @@
-Cooked = { Font=5 }
+Cooked = { Font=5; Timer=1.2 }
 
 local IP_K = (_DEBUG and "192.168.1.46") or "192.168.1.160";
 
@@ -14,6 +14,7 @@ function Cooked:enter(oldState)
 	self.K:setSerialization(bitser.dumps, bitser.loads)
 	self.K:connect()
 
+	self.K:on("connect", function(data) _Cooked.fing = self.Timer end)
 	self.K:on("cooked", function(data) _Cooked = data; _Cooked.fing = false; end)
 
 	self.FH = _FontsH[self.Font]
@@ -22,7 +23,7 @@ end
 
 function Cooked:fetchFood()
 	if self.K:isConnected() then 
-		if not _Cooked.fing then _Cooked.fing = 1.2 end
+		if not _Cooked.fing then _Cooked.fing = self.Timer end
 	elseif self.K:isConnecting() then return
 	else self.K:connect()
 	end	
@@ -38,6 +39,13 @@ function Cooked:mousereleased( x, y, button, istouch )
 end
 
 function Cooked:update(dt)
+	if dt>2 then
+		self.K:disconnectNow()
+		return
+	end
+
+	if self.K:isDisconnected() then self.K:connect() end
+
 	pcall(function() self.K:update() end)
 
 	if _Cooked.fing and _Cooked.fing > 1 then 

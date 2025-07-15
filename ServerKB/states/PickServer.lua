@@ -15,7 +15,7 @@ function PickServer:init()
 	table.insert(self.Bs,B)
 
     B = newButton(w_w*0.3,w_h*0.55,w_w*0.4,w_h*0.4,"📃", function() 
-        gs.switch(Cooked) 
+        love.graphics.setBackgroundColor(0.1,0.1,0.2); gs.switch(Cooked) 
     end)
 	table.insert(self.Bs,B)
 end

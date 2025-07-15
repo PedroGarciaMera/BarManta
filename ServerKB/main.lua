@@ -1,4 +1,4 @@
-_DEBUG = false; _V = "v1.51"
+_DEBUG = false; _V = "v1.52"
 
 sock = require "sock"
 bitser = require "spec.bitser"
@@ -22,6 +22,8 @@ function love.load()
     realw_w, realw_h = love.graphics.getDimensions( )
     scalex = (realw_w/w_w) ; scaley = (realw_h/w_h)
 
+	love.graphics.setBackgroundColor(0,0,0)
+
 	gs.registerEvents()
 	gs.switch(loadData)
 end
@@ -31,10 +33,12 @@ function love.keyreleased(key)
 end
 
 function love.update(dt)
-	if pcall(function() _S:update() end) then
-		love.graphics.setBackgroundColor(0.1,0.1,0.2)
-	else
-		love.graphics.setBackgroundColor(0.4,0.1,0.2)
+	if _S then
+		if pcall(function() _S:update() end) then
+			love.graphics.setBackgroundColor(0.1,0.1,0.2)
+		else
+			love.graphics.setBackgroundColor(0.4,0.1,0.2)
+		end
 	end
 end
 

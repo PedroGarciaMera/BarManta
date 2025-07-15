@@ -14,6 +14,7 @@ function Mesa:loadButtons()
 	-- Clear
 	table.insert(self.hudBs,newButton(w_w*0.4,self._D.tty,w_w*0.2,w_h-self._D.tty,"X",
 		function()
+			self:addCooked({n=0,k="- X -"})
 			self.M=nil; table.remove(_Mesas,self.pos);
 			love.filesystem.write( "mesas.sav", TSerial.pack(_Mesas))
 			gs.switch(PickMesa)

@@ -10,7 +10,7 @@ function History:enter(oldState,LT)
 	))
   -- Mesas
   for i,mesa in ipairs(_MesasHistory) do
-    B = newPosButton(i,mesa.i,function() _GS.push(_Gs.HistoryMesa, mesa) end)
+    B = newPosButton(i,mesa.i,function() _mesaPd=mesa.i; _GS.push(_Gs.HistoryMesa, mesa) end)
 		table.insert(self.Bs,B)
   end
 	love.graphics.setFont( Fonts[7] )
