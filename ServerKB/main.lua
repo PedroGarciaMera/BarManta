@@ -1,4 +1,4 @@
-_DEBUG = false; _V = "v1.52"
+_DEBUG = false; _V = "v1.53"
 
 sock = require "sock"
 bitser = require "spec.bitser"
