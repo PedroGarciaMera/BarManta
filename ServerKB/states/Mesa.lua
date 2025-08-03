@@ -14,6 +14,7 @@ function Mesa:loadButtons()
 	-- Clear
 	table.insert(self.hudBs,newButton(w_w*0.4,self._D.tty,w_w*0.2,w_h-self._D.tty,"X",
 		function()
+			self:CheckUnDones()
 			self:addCooked({n=0,k="- X -"})
 			self.M=nil; table.remove(_Mesas,self.pos);
 			love.filesystem.write( "mesas.sav", TSerial.pack(_Mesas))
@@ -49,7 +50,9 @@ function Mesa:loadButtons()
 			if T.type=="K" then
 				B = newButton(0,y,w_w*0.8,self._D.th," ",function()
 					T.done = not T.done
-					if not T.done then self.M.done=false
+					if not T.done then 
+						self.M.done=false
+						self:rmvCooked(T)
 					else
 						self.M.done=self:isMesaDone()
 						self:addCooked(T)
@@ -70,6 +73,14 @@ function Mesa:isMesaDone()
 	return true
 end
 
+function Mesa:CookUnDones()
+	for i,T in ipairs(self.M) do
+		if not T.done then 
+			table.insert(_Cooked, {m=self.M.mesa; n=item.n; s=item.k}) 
+			if #_Cooked > 16 then table.remove(_Cooked, 1) end
+		end
+	end
+end
 function Mesa:addCooked(item)
 	table.insert(_Cooked, {m=self.M.mesa; n=item.n; s=item.k})
 
@@ -78,6 +89,16 @@ function Mesa:addCooked(item)
     end
 
 	love.filesystem.write( "cooked.sav", TSerial.pack(_Cooked))
+end
+function Mesa:rmvCooked(item)
+	if #_Cooked==0 then return end
+
+	local last = _Cooked[#_Cooked]
+
+	if last.m==self.M.mesa and last.n==item.n and last.s==item.k then
+		table.remove(_Cooked, #_Cooked)
+		love.filesystem.write( "cooked.sav", TSerial.pack(_Cooked))
+	end
 end
 
 function Mesa:init()

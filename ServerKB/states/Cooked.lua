@@ -63,8 +63,7 @@ function Cooked:draw()
 		local y = 0
 		for i = #_Cooked, 1, -1 do
 			--love.graphics.printf(_Cooked[i].m.."] ".._Cooked[i].n.."  ".._Cooked[i].s, 0, y, w_w*0.9, "left")
-
-			love.graphics.printf({Colors.green,_Cooked[i].m.."] ",Colors.yellow,_Cooked[i].n.."  ".._Cooked[i].s},0, y, w_w*0.9, "left")
+			love.graphics.printf({Colors.green,_Cooked[i].m.."] ",Colors.yellow,_Cooked[i].n.."  ".._Cooked[i].s},0, y, w_w*2, "left")
 			y=y+self.FH
 		end
 	end
