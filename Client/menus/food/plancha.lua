@@ -2,7 +2,7 @@ local D={isKitchen=true};
 
 D[1] = {
   {k="CORV_P",s="Filete Corvina Patatas"}; {k="CORV_V",s="Filete Corvina Verduras"}; {k="BRO_CORV",s="Brocheta Corvina"};
-  {k="LOBITO_P",s="Filete Lobito Patatas"}; {k="LOBITO_V",s="Filete Lobito Verduras"}; {k="BRO_ATUN",s="Brocheta Atun"};
+  {k="LOBITO_P",s="Filete Lobito Patatas"}; {k="LOBITO_V",s="Filete Lobito Verduras"}; {k="PIN_ATUN",s="Pincho Atun"};
   {k="POTERA_P",s="Calamar Potera Patatas"}; {k="POTERA_V",s="Calamar Potera Verduras"}; {k="HUEVAS",s="Huevas Plancha"};
   {k="LENGUAO_P",s="Lenguao Patatas"}; {k="LENGUAO_V",s="Lenguao Verduras"};
 }

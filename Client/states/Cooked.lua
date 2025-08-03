@@ -46,7 +46,8 @@ function Cooked:draw()
 	else
 		local y = w_h*0.1 + _FontsH[self.Font]
 		for i = #_Cooked, 1, -1 do
-			love.graphics.printf(_Cooked[i].m.."] ".._Cooked[i].n.."  ".._Cooked[i].s, 0, y, w_w, "left")
+			love.graphics.printf({Colors.green,_Cooked[i].m.."] ",Colors.yellow,_Cooked[i].n.."  ".._Cooked[i].s},0, y, w_w*2, "left")
+			-- love.graphics.printf(_Cooked[i].m.."] ".._Cooked[i].n.."  ".._Cooked[i].s, 0, y, w_w, "left")
 			y=y+_FontsH[self.Font]
 		end
 	end

@@ -69,7 +69,7 @@ function Mesa:draw()
 		love.graphics.setColor(Colors.yellow)
 		for _,item in pairs(self.M.items) do
 			if not item.isKitchen then
-				love.graphics.printf(item.n.."  "..item.txt, 0, y, w_w, "left")
+				love.graphics.printf(item.n.."  "..item.txt, 0, y, w_w*2, "left")
 				-- love.graphics.line(0,y+self._D.th,w_w,y+self._D.th)
 
 				y=y+_FontsH[self.Font]
@@ -84,7 +84,7 @@ function Mesa:draw()
 		love.graphics.setColor(Colors.yellow)
 		for _,item in pairs(self.M.items) do
 			if item.isKitchen then
-				love.graphics.printf(item.n.."  "..item.txt, 0, y, w_w, "left")
+				love.graphics.printf(item.n.."  "..item.txt, 0, y, w_w*2, "left")
 				-- love.graphics.line(0,y+self._D.th,w_w,y+self._D.th)
 
 				y=y+_FontsH[self.Font]
