@@ -11,13 +11,13 @@ function Mesa:init()
 	table.insert(self.Bs,newButton(w_w*0.4,w_h-w_w*0.2,w_w*0.2,w_w*0.2,"🚮",
 		function() clearMesa(_mesaPd); _GS.pop() end
 	))
-	-- Cuenta
-	table.insert(self.Bs,newButton(w_w-w_w*0.2,w_h-w_w*0.2,w_w*0.2,w_w*0.2,"📜",
-		function() 
-			_Cs.B:send("cuenta",_mesaPd)
-			_GS.pop() 
-		end
-	))
+	-- -- Cuenta
+	-- table.insert(self.Bs,newButton(w_w-w_w*0.2,w_h-w_w*0.2,w_w*0.2,w_w*0.2,"📜",
+	-- 	function() 
+	-- 		_Cs.B:send("cuenta",_mesaPd)
+	-- 		_GS.pop() 
+	-- 	end
+	-- ))
 
 
 	-- Send Mesa

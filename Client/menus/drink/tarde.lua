@@ -3,7 +3,8 @@ local D={};
 D[1] = {
   {k="BATIDO_F",s="Batido Fresa"}; {k="BATIDO_V",s="Batido Vainilla"}; {k="BATIDO_C",s="Batido Chocolate"};
   {k="TONICA",s="Tonica"}; {k="BIO_FRU",s="Bio Fruta"}; {k="INFUSION",s="Infusion Preguntar"};
-  {k=" ",s=" "}; {k="CAFE",s="Cafe Preguntar"};
+  {k=" ",s=" "}; {k="CAFE",s="Cafe Preguntar"}; {k=" ",s=" "};
+  {k="ZUMO_NA",s="Zumo Naranja"}; {k="ZUMO_PI",s="Zumo Pina"}; {k="ZUMO_ME",s="Zumo Melocoton"};
 }
 
 D[2] = {

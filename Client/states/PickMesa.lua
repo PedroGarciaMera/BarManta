@@ -18,7 +18,7 @@ function PickMesa:init()
 	end
 	B = newPosButton(13,"🥘",function(self) _GS.push(_Gs.Cooked) end)
 	table.insert(self.Bs1,B)
-	B = newPosButton(15,"↪",function(self) self.Bs=self.Bs2 end)
+	B = newPosButton(15,"↪",function(self) self.Bs=self.Bs2; self:checkCom() end)
 	table.insert(self.Bs1,B)
 	-- 10-19
 	self.Bs2 = {}
@@ -26,9 +26,9 @@ function PickMesa:init()
 		B = newPosButton(i,i+9,function(self) _mesaPd=i+9; _GS.switch(_Gs.Menu) end)
 		table.insert(self.Bs2,B)
 	end
-	B = newPosButton(13,"↩",function(self) self.Bs=self.Bs1 end)
+	B = newPosButton(13,"↩",function(self) self.Bs=self.Bs1; self:checkCom() end)
 	table.insert(self.Bs2,B)
-	B = newPosButton(15,"↪",function(self) self.Bs=self.Bs3 end)
+	B = newPosButton(15,"↪",function(self) self.Bs=self.Bs3; self:checkCom() end)
 	table.insert(self.Bs2,B)
 	-- 20-29
 	self.Bs3 = {}
@@ -36,7 +36,7 @@ function PickMesa:init()
 		B = newPosButton(i,i+19,function(self) _mesaPd=i+19; _GS.switch(_Gs.Menu) end)
 		table.insert(self.Bs3,B)
 	end
-	B = newPosButton(13,"↩",function(self) self.Bs=self.Bs2 end)
+	B = newPosButton(13,"↩",function(self) self.Bs=self.Bs2; self:checkCom() end)
 	table.insert(self.Bs3,B)
 
 	-- History
@@ -46,13 +46,21 @@ function PickMesa:init()
 	self.Bs = self.Bs1
 end
 
+function PickMesa:checkCom()
+	for _,B in pairs(self.Bs) do
+		if _MesasCom[B.txt] then B.txt2 = "👥 ".._MesasCom[B.txt] else B.txt2 = nil end
+	end
+end
+
 function PickMesa:enter(oldState,LT)
 	self.longT = LT or false
 	love.graphics.setFont( Fonts[7] ); love.graphics.setColor(Colors.orange)
+	self:checkCom()
 end
 
 function PickMesa:resume()
 	love.graphics.setFont( Fonts[7] ); love.graphics.setColor(Colors.orange)
+	self:checkCom()
 end
 
 function PickMesa:keyreleased(key)
@@ -78,8 +86,10 @@ function PickMesa:draw()
 
 	for i,B in pairs(self.Bs) do
 		if _Mesas[B.txt] then love.graphics.setColor(Colors.yellow)
+		elseif _MesasCom[B.txt] then love.graphics.setColor(Colors.green)
 		else love.graphics.setColor(Colors.orange)
 		end
+
 		drawButton(B)
 	end
 end

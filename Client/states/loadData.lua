@@ -57,7 +57,7 @@ end
 local function addMenuButton(I,T)
 	local menuBD = {x=w_w*0.1,w=w_w*0.8,h=w_h*0.1}
 	local n = #_MenusBs[I]+1
-	local mY = w_h/(n+1)
+	local mY = (w_h*0.9)/(n+1)
 
 	table.insert(_MenusBs[I],{x=menuBD.x, y=0, w=menuBD.w, h=menuBD.h, txt=T, exe=function() _GS.push(_Gs.SubMenu,T) end})
 
@@ -76,26 +76,9 @@ local function loadMenus()
 		for _,Fname in ipairs(love.filesystem.getDirectoryItems("menus/"..Mname)) do
 		  cleanName = Fname:sub(1, -5)
 			_Menus[i][cleanName] = require ("menus/"..Mname.."/"..cleanName);
-			addMenuButton(i,cleanName)
+			if cleanName ~= "revueltos" and cleanName ~= "latas" then addMenuButton(i,cleanName) end
 			loadSubMenuBs(cleanName,_Menus[i][cleanName])
 		end
-
-		-- Next Menu
-		B = newButton(0,0,w_w*0.2,w_w*0.2,"🔃", function()
-			_MenuSel=_MenuSel+1; if _MenuSel>#_Menus then _MenuSel=1 end
-			_MenusBs[_MenuSel][#_MenusBs[_MenuSel]].txt = "Mesa ".._mesaPd
-		end)
-		table.insert(_MenusBs[i],B)
-		-- Sound Alert
-		B = newButton(w_w-w_w*0.2,0,w_w*0.2,w_w*0.2,"🔊",
-			function() _Cs.K:send("alert") end
-		)
-		table.insert(_MenusBs[i],B)
-		-- Mesa Button
-		B = newButton(w_w*0.3,0,w_w*0.4,w_w*0.2,"Error",
-			function() _GS.push(_Gs.Mesa) end
-		)
-		table.insert(_MenusBs[i],B)
 	end
 
 	_MenuSel = 1;
@@ -113,7 +96,7 @@ function loadData:loads()
 	Colors.violet2 = {0.4,0.4,0.2}
 	Colors.grey = {0.5,0.5,0.5}
 	Colors.yellow = {1,1,0}
-	Colors.green = {0.1,0.6,0.1}
+	Colors.green = {0.2,1,0.2}--{0.1,0.6,0.1}
 
 	Fonts = {
 		love.graphics.newFont(30);
@@ -124,6 +107,7 @@ function loadData:loads()
 		love.graphics.newFont("LemonMilk.otf",w_h*0.5);
 		love.graphics.newFont("Symbola.ttf",100);
 		love.graphics.newFont("Symbola.ttf",80);
+		love.graphics.newFont("Symbola.ttf",200);
 	}
 	_FontsH = {}; for _, F in ipairs(Fonts) do table.insert(_FontsH, F:getHeight()) end
 
@@ -150,6 +134,8 @@ function loadData:loads()
 	end
 
 	_MesasHistory = {};
+
+	_MesasCom = {}; -- Flag for comensales
 
 	-- love.filesystem.write( "save.sav", "\n" )
 	-- for i,t in ipairs(Comidas.tapas) do

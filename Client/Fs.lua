@@ -20,10 +20,11 @@ function newButton(X,Y,W,H,T,F) return {x=X, y=Y, w=W, h=H, txt=T, exe=F} end
 function drawButton(B)
 	love.graphics.rectangle("line", B.x, B.y, B.w, B.h)
 	love.graphics.printf(stripVariationSelectors(B.txt), B.x, B.y, B.w, "center")
+	if B.txt2 then love.graphics.printf(stripVariationSelectors("\n"..B.txt2), B.x, B.y, B.w, "center") end
 end
 
 function drawButtons(Bs)
-	for i,B in ipairs(Bs) do drawButton(B) end
+	for _,B in ipairs(Bs) do drawButton(B) end
 end
 
 function isPointInRectangle(x,y,R)
