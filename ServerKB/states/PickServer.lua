@@ -1,16 +1,18 @@
 PickServer = {}
 
+local P_K = (_DEBUG and 22112) or 22122; local P_B = (_DEBUG and 22114) or 22124;
+
 function PickServer:init()
     -- Buttons
 	self.Bs = {}; local B
 
 	B = newButton(w_w*0.05,w_h*0.05,w_w*0.4,w_h*0.4,"🥘", function() 
-        _S = loadServer(22122); gs.switch(PickMesa) 
+        _S = loadServer(P_K); gs.switch(PickMesa) 
     end)
 	table.insert(self.Bs,B)
 
     B = newButton(w_w*0.55,w_h*0.05,w_w*0.4,w_h*0.4,"🍺", function() 
-        SFX.alert = love.audio.newSource( "sounds/coin4.wav", "static" ); _S = loadServer(22124); gs.switch(PickMesa) 
+        SFX.alert = love.audio.newSource( "sounds/coin4.wav", "static" ); _S = loadServer(P_B); gs.switch(PickMesa) 
     end)
 	table.insert(self.Bs,B)
 
@@ -38,7 +40,12 @@ function PickServer:update(dt)
 
 end
 
-function PickServer:draw()
+function PickServer:draw()   
+    if _ErrorM then 
+        love.graphics.setColor(1,0,0)
+        love.graphics.printf("Couldn't load 'mesas.sav'",0,0,w_w,"right")        
+    end
+
     love.graphics.setFont( Fonts[6] )
     love.graphics.setColor(1,1,1)
     for i,B in ipairs(self.Bs) do drawButton(B) end

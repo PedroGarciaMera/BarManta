@@ -14,7 +14,7 @@ function Mesa:loadButtons()
 	-- Clear
 	table.insert(self.hudBs,newButton(w_w*0.4,self._D.tty,w_w*0.2,w_h-self._D.tty,"X",
 		function()
-			self:CheckUnDones()
+			self:CookUnDones()
 			self:addCooked({n=0,k="- X -"})
 			self.M=nil; table.remove(_Mesas,self.pos);
 			love.filesystem.write( "mesas.sav", TSerial.pack(_Mesas))
@@ -76,7 +76,7 @@ end
 function Mesa:CookUnDones()
 	for i,T in ipairs(self.M) do
 		if not T.done then 
-			table.insert(_Cooked, {m=self.M.mesa; n=item.n; s=item.k}) 
+			table.insert(_Cooked, {m=self.M.mesa; n=T.n; s=T.k}) 
 			if #_Cooked > 16 then table.remove(_Cooked, 1) end
 		end
 	end

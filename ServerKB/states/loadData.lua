@@ -30,9 +30,10 @@ function loadData:loads()
 		-- { mesa=28;
 		-- 	{k="test";n=1;done=false};
 		-- };
-	}
+	}; _ErrorM = false
 	if love.filesystem.getInfo( "mesas.sav" ) then
-		_Mesas = TSerial.unpack( love.filesystem.read( "mesas.sav" ) )
+		local okM, resultM = pcall(TSerial.unpack, love.filesystem.read("mesas.sav"))
+		if okM and type(resultM) == "table" then _Mesas = resultM  else _Mesas = {}; _ErrorM = true end
 	end
 
 	_Cooked = {} -- {{m=X; n=Y; s=""},{...}...}
