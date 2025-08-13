@@ -32,7 +32,7 @@ end
 function History:draw()
 	drawTittle("HISTORIAL")
 
-  love.graphics.setColor(Colors.orange)
+  love.graphics.setColor(1,1,1)
   drawButtons(self.Bs)
 end
 

@@ -24,7 +24,7 @@ function Menu:init()
 	)
 
 	-- Cuenta
-	self.MBs.C = newButton(w_w-w_w*0.2,w_h-(w_w*0.2),w_w*0.2,w_w*0.2,"📜",
+	self.MBs.C = newButton(0,w_h-(w_w*0.2),w_w*0.2,w_w*0.2,"📜",
 		function() 
 			_Cs.B:send("cuenta",_mesaPd); 
 			_MesasCom[_mesaPd] = false; 

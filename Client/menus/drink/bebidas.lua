@@ -1,8 +1,8 @@
 local D={};
 
 D[1] = {
-  {k="CC",s="Coca Cola"}; {k="CCZ",s="Coca Cola Zero"}; {k="CCZZ",s="Coca Cola Zero Zero"};
-  {k="FL",s="Fanta Limon"}; {k="FN",s="Fanta Naranja"}; {k="SPRITE",s="Sprite"};
+  {k="COLA",s="Coca Cola"}; {k="COLA 0",s="Coca Cola Zero"}; {k="COLA 00",s="Coca Cola Zero Zero"};
+  {k="R.Limon",s="Refresco Limon"}; {k="R.NARANJA",s="Refresco Naranja"}; {k="SPRITE",s="Sprite"};
   {k="NEST_L",s="LATA NESTEA L"};{k="NEST_M",s="LATA NESTEA MARA"}; {k=" ",s=" "};
   {k="ACUAR_L",s="LATA ACUARIO L"}; {k="ACUAR_N",s="LATA ACUARIO N"}; {k="AGUA_CH",s="Agua Chica Desayuno"};  
 }

@@ -1,6 +1,7 @@
 local loadData = {}
 
-local IP_K = (_DEBUG and "192.168.1.46") or "192.168.1.160"; local IP_B = (_DEBUG and "192.168.1.46") or "192.168.1.153";
+local IP_K = (_DEBUG and "192.168.1.72") or "192.168.1.160"; local IP_B = (_DEBUG and "192.168.1.46") or "192.168.1.153";
+local P_K = (_DEBUG and 22112) or 22122; local P_B = (_DEBUG and 22114) or 22124;
 
 local function makePedido(ITEM,N,IsKitchen)
 	N = N or 1;
@@ -128,12 +129,17 @@ function loadData:loads()
 		end
 	end
 
-	_Mesas = {}
+	_Mesas = {}; _ErrorM = false
 	if love.filesystem.getInfo( "mesas.sav" ) then
-		_Mesas = TSerial.unpack( love.filesystem.read( "mesas.sav" ) )
+		local okM, resultM = pcall(TSerial.unpack, love.filesystem.read("mesas.sav"))
+		if okM and type(resultM) == "table" then _Mesas = resultM  else _Mesas = {}; _ErrorM = true end
 	end
 
-	_MesasHistory = {};
+	_MesasHistory = {}; _ErrorHM = false
+	if love.filesystem.getInfo( "mesasH.sav" ) then
+		local okM, resultM = pcall(TSerial.unpack, love.filesystem.read("mesasH.sav"))
+		if okM and type(resultM) == "table" then _MesasHistory = resultM  else _MesasHistory = {}; _ErrorHM = true end
+	end
 
 	_MesasCom = {}; -- Flag for comensales
 
@@ -148,13 +154,13 @@ function loadData:loads()
 
 	-- Clients
 	_Cs = {}
-	_Cs.K = sock.newClient(IP_K, 22122)
+	_Cs.K = sock.newClient(IP_K, P_K)
 	_Cs.K:setSerialization(bitser.dumps, bitser.loads)
 	-- _Cs.K:setTimeout(8, 1250, 7500)
 	-- _Cs.K:setMessageTimeout(1000)
 	_Cs.K:connect()
 
-	_Cs.B = sock.newClient(IP_B, 22124)
+	_Cs.B = sock.newClient(IP_B, P_B)
 	_Cs.B:setSerialization(bitser.dumps, bitser.loads)
 	-- _Cs.B:setTimeout(8, 1250, 7500)
 	_Cs.B:connect()

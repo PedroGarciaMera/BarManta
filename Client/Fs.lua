@@ -43,4 +43,5 @@ function clearMesa(Mi,toHistory)
 
 	_Mesas[Mi]=nil
 	love.filesystem.write( "mesas.sav", TSerial.pack(_Mesas))
+	love.filesystem.write( "mesasH.sav", TSerial.pack(_MesasHistory))
 end

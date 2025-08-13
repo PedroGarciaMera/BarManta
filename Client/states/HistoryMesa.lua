@@ -7,6 +7,28 @@ function HistoryMesa:init()
 	table.insert(self.Bs,newButton(0,w_h-w_w*0.2,w_w*0.2,w_w*0.2,"⬅",
 		function() _GS.pop() end
 	))
+
+	-- Send Mesa
+	table.insert(self.Bs,newButton(w_w*0.8,0,w_w*0.2,w_w*0.2,"📩",
+		function()
+			local type;
+
+			if self.M then
+				local MesaToSendK = {m=_mesaPd}
+				local MesaToSendB = {m=_mesaPd}
+				for _,item in pairs(self.M.items) do
+					type = "B";
+					if item.isKitchen then type="K"; table.insert(MesaToSendK,{item=item.txt;n=item.n;type=type}) end
+					table.insert(MesaToSendB,{item=item.txt;n=item.n;type=type})
+				end
+
+				if #MesaToSendK>0 then MesaToSendK.h = true; _Cs.K:send("pedidoMesa",MesaToSendK) end
+				if #MesaToSendB>0 then MesaToSendB.h = true; _Cs.B:send("pedidoMesa",MesaToSendB) end
+			end
+
+			_GS.pop()
+		end
+	))
 end
 function HistoryMesa:enter(oldState,mesa) self.M=mesa; end
 
