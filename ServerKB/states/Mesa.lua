@@ -136,9 +136,13 @@ function Mesa:draw()
 	-- Items
 	local y = self.Y; local It;
 	if self.M then
+		-- Comensales
+		love.graphics.setColor(Colors.green)	
+		love.graphics.setFont( Fonts[7] )	
+		if self.M.c then love.graphics.printf(self.M.c.."👥", 0, 0, w_w, "right") end
 		-- Mesa num
-		love.graphics.setFont( Fonts[3] )
 		love.graphics.setColor(Colors.red)
+		love.graphics.setFont( Fonts[3] )		
 		-- love.graphics.printf(self.M, 0, 0, w_w, "center")
 		love.graphics.printf(self.M.mesa, 0, 0, w_w, "center")
 

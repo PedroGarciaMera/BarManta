@@ -60,7 +60,7 @@ function loadServer(Port)
 		if currentM and currentM.mesa==D.m then gs.current():loadButtons() end
 	end)
 
-	S:on("pedidoMesa", function(D, client) -- D = { {item=ITEM;n=N}...{}; m=_mesaPd}
+	S:on("pedidoMesa", function(D, client) -- D = { {item=str;n=N;type=K/B}...{}; m=_mesaPd, h=history, c=comensales}
 		local M = getMesa(D.m)
 
 		SFX.alert:stop(); SFX.alert:play()
@@ -70,19 +70,21 @@ function loadServer(Port)
 				table.insert(M,{k=v.item;n=v.n;done=false;type=v.type})
 				if v.type=="B" then M.drinks=true end
 			end
+			if D.c then M.c = D.c end
 		else
 			local T =  { mesa=D.m }
 			for _,v in ipairs(D) do
 				table.insert(T,{k=v.item;n=v.n;done=false;type=v.type})
 				if v.type=="B" then T.drinks=true end
 			end
+			if D.c then T.c = D.c end
 			table.insert(_Mesas,T)
 		end
 
 		local currentM = gs.current().M
 		if currentM and currentM.mesa==D.m then gs.current():loadButtons() end
 
-		client:send("sended",D.m)
+		if not D.h then client:send("sended",D.m) end
 		love.filesystem.write( "mesas.sav", TSerial.pack(_Mesas))
 	end)
 

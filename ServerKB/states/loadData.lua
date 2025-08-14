@@ -23,6 +23,7 @@ function loadData:loads()
 		love.graphics.newFont(16);
 		love.graphics.newFont("Symbola.ttf",w_h*0.1);
 		love.graphics.newFont("Symbola.ttf",w_h*0.4);
+		love.graphics.newFont("Symbola.ttf",w_h*0.2);
 	}
 	_FontsH = {}; for _, F in ipairs(Fonts) do table.insert(_FontsH, F:getHeight()) end
 
@@ -40,6 +41,8 @@ function loadData:loads()
 	if love.filesystem.getInfo( "cooked.sav" ) then
 		_Cooked = TSerial.unpack( love.filesystem.read( "cooked.sav" ) )
 	end
+
+	_MesasCom = {}; -- Flag for comensales
 
 	-- for k,v in pairs(MtoB) do print(k,v) end
 
