@@ -47,9 +47,9 @@ function HistoryMesa:draw()
 	local y = Fonts[self.Font]:getHeight(); local It
 
 	-- Mesa nº
-	love.graphics.setFont( Fonts[6] )
-	love.graphics.setColor(0,0,0,0.2)
-	love.graphics.printf(_mesaPd, 0, 0, w_w, "center")
+	love.graphics.setFont( Fonts[10] )
+	love.graphics.setColor(1,1,1,0.2)
+	love.graphics.printf(_mesaPd, 0, w_h*0.25, w_w, "center")
 
 	if self.M then
 		love.graphics.setFont( Fonts[self.Font] )

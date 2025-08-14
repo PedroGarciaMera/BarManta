@@ -109,6 +109,7 @@ function loadData:loads()
 		love.graphics.newFont("Symbola.ttf",100);
 		love.graphics.newFont("Symbola.ttf",80);
 		love.graphics.newFont("Symbola.ttf",200);
+		love.graphics.newFont("Symbola.ttf",w_w*0.9);
 	}
 	_FontsH = {}; for _, F in ipairs(Fonts) do table.insert(_FontsH, F:getHeight()) end
 

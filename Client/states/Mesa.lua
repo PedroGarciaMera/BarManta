@@ -34,6 +34,8 @@ function Mesa:init()
 					table.insert(MesaToSendB,{item=item.txt;n=item.n;type=type})
 				end
 
+				if _MesasCom[_mesaPd] then MesaToSendK.c = _MesasCom[_mesaPd]; MesaToSendB.c = _MesasCom[_mesaPd]; end
+
 				if not self.M.info.sendFK and #MesaToSendK>0 then _Cs.K:send("pedidoMesa",MesaToSendK) end
 				if not self.M.info.sendFB and #MesaToSendB>0 then _Cs.B:send("pedidoMesa",MesaToSendB) end
 			end
@@ -59,9 +61,9 @@ function Mesa:draw()
 	local y = _FontsH[self.Font];
 
 	-- Mesa nº
-	love.graphics.setFont( Fonts[6] )
-	love.graphics.setColor(0,0,0,0.2)
-	love.graphics.printf(_mesaPd, 0, 0, w_w, "center")
+	love.graphics.setFont( Fonts[10] )
+	love.graphics.setColor(1,1,1,0.2)
+	love.graphics.printf(_mesaPd, 0, w_h*0.25, w_w, "center")
 
 	if self.M then
 		love.graphics.setFont( Fonts[self.Font] )
