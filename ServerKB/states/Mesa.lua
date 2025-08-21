@@ -77,14 +77,14 @@ function Mesa:CookUnDones()
 	for i,T in ipairs(self.M) do
 		if not T.done then 
 			table.insert(_Cooked, {m=self.M.mesa; n=T.n; s=T.k}) 
-			if #_Cooked > 16 then table.remove(_Cooked, 1) end
+			if #_Cooked > 20 then table.remove(_Cooked, 1) end
 		end
 	end
 end
 function Mesa:addCooked(item)
 	table.insert(_Cooked, {m=self.M.mesa; n=item.n; s=item.k})
 
-	if #_Cooked > 16 then
+	if #_Cooked > 20 then
         table.remove(_Cooked, 1)  -- Remove oldest (bottom)
     end
 

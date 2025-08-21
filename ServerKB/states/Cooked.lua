@@ -1,4 +1,4 @@
-Cooked = { Font=5; Timer=1.2 }
+Cooked = { Font=5; Timer=1.2; Tiny=false }
 
 local IP_K = (_DEBUG and "192.168.1.46") or "192.168.1.160";
 
@@ -6,6 +6,15 @@ function Cooked:init()
 	-- Refresh button
 	self.RB = newButton(w_w*0.9,0,w_w*0.1,w_w*0.1,"🔃",
 		function() self:fetchFood() end
+	)
+
+	-- Size button
+	self.SB = newButton(w_w*0.9,w_h-(w_w*0.1),w_w*0.1,w_w*0.1,"↔",
+		function()
+			if self.Tiny then self.Font = 5 else self.Font = 8 end 
+			self.FH = _FontsH[self.Font]
+			self.Tiny = not self.Tiny
+		end
 	)
 end
 
@@ -36,6 +45,7 @@ end
 
 function Cooked:mousereleased( x, y, button, istouch )
 	if not _Cooked.fing and isPointInRectangle(x,y,self.RB) then self.RB.exe() end
+	if isPointInRectangle(x,y,self.SB) then self.SB.exe() end
 end
 
 function Cooked:update(dt)
@@ -68,7 +78,7 @@ function Cooked:draw()
 		end
 	end
 
-
+	love.graphics.setFont( Fonts[5] )
 	-- Refresh
 	if self.K:isConnected() then love.graphics.setColor(0,0.8,0)
 	elseif self.K:isConnecting() then love.graphics.setColor(0.8,0.8,0)
@@ -76,6 +86,10 @@ function Cooked:draw()
 	end
 	-- drawTittle("COOKED")
 	drawButton(self.RB)
+
+	-- Size button
+	love.graphics.setColor(0,0.8,0)
+	drawButton(self.SB)
 end
 
 function Cooked:leave()
